@@ -11,8 +11,9 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-  get '/books'do
-    @books = Book.all
-    erb :'books/index'
-  end
+    get '/books' do
+      @books = Book.all
+      erb :'books/index'
+
+    end
 end
