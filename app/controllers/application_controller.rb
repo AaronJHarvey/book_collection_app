@@ -16,6 +16,23 @@ class ApplicationController < Sinatra::Base
       erb :'books/index'
     end
 
+    get '/books/new' do
+      @users = User.all
+      erb :'/books/new'
+    end
+
+    post '/books' do
+      binding.pry
+      user = User.find_by_id(params[:user_id])
+      book = user.books.build(params)
+
+      if book.save
+        redirect '/books'
+      else
+        redirect '/books/new'
+      end
+    end
+
     get '/books/:id' do
       @book = Book.find_by_id(params[:id])
 
@@ -25,4 +42,6 @@ class ApplicationController < Sinatra::Base
         redirect '/books'
       end
     end
+
+
 end
