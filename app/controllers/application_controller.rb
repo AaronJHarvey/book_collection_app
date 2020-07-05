@@ -22,7 +22,6 @@ class ApplicationController < Sinatra::Base
     end
 
     post '/books' do
-      binding.pry
       user = User.find_by_id(params[:user_id])
       book = user.books.build(params)
 
@@ -43,5 +42,18 @@ class ApplicationController < Sinatra::Base
       end
     end
 
+    get '/books/:id/edit' do
+      @book = Book.find_by_id(params[:id])
+      erb :'/books/edit'
+    end
+
+    patch '/books/:id' do
+      book = Book.find_by_id(params[:id])
+      if book.update(title: params[:title], author: params[:author])
+        redirect "/books/#{book.id}"
+      else
+        redirect '/books/new'
+      end
+    end
 
 end
