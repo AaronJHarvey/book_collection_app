@@ -5,6 +5,8 @@ class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+    enable :sessions
+    set :session_secret, ENV.fetch("APPSECRET")
   end
 
   get "/" do
@@ -12,6 +14,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/books' do
+    binding.pry
     @books = Book.all
     erb :'books/index'
   end
