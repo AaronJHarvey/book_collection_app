@@ -3,7 +3,7 @@ CRUD actions
 
 C => Create
   - get /books/new -> new action (create book listing). Renders a new view with a form to enter the information about the book
-  - post /books (catches the request from the browser) -> creates action. Handles form data, redirects
+  - post /books (catches the request from the browser) -> create action. Handles form data, redirects
 
 R => Read
   - get /books -> index action. Renders an index view (ideally displaying all the books)

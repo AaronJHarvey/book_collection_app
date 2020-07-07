@@ -56,4 +56,12 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  delete '/books/:id' do
+    book = Book.find_by_id(params[:id])
+    if book
+      book.delete
+    end
+    redirect '/books'
+  end
+
 end

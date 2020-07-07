@@ -1,3 +1,12 @@
 <h2><%= @book.title %></h2>
 <br>
 <p> This book is written by <%=@book.author%></p>
+
+<form method="POST" action="/books/<%= @book.id %>">
+  <input type="hidden" id="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>
+
+<a href="/books/<%=@book.id%>/edit"><button>Edit this book</button></a>
+<br>
+<a href="/books"><button>View all books in my collection</button></a>
