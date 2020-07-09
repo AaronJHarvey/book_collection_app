@@ -14,7 +14,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/books' do
-    binding.pry
     @books = Book.all
     erb :'books/index'
   end
