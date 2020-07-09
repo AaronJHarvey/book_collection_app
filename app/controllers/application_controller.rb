@@ -86,7 +86,7 @@ class ApplicationController < Sinatra::Base
 
   delete '/books/:id' do
     if logged_in?
-      book = Book.find_by_id(params[:id])
+      book = current_user.books.find_by_id(params[:id])
       if book
         book.delete
       end
