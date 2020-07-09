@@ -2,12 +2,7 @@
 <br>
 
 <form method="post" action="/books">
-  <label> Select User:</label>
-  <select name="user_id">
-    <% @users.each do |user| %>
-      <option value="<%= user.id %>"><%= user.name%></option>
-    <% end %>
-    </select>
+
     <br>
     <label> Title:</label>
     <input type="text" name="title">

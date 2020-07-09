@@ -14,56 +14,96 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/books' do
-    @books = Book.all
-    erb :'books/index'
+    if logged_in?
+      @books = current_user.books
+      erb :'books/index'
+    else
+      redirect '/login'
+    end
   end
 
   get '/books/new' do
-    @users = User.all
-    erb :'/books/new'
+    if logged_in?
+      erb :'/books/new'
+    else
+      redirect '/login'
+    end
   end
 
   post '/books' do
-    user = User.find_by_id(params[:user_id])
-    book = user.books.build(params)
+    if logged_in?
+      book = current_user.books.build(params)
 
-    if book.save
-      redirect '/books'
+      if book.save
+        redirect '/books'
+      else
+        redirect '/books/new'
+      end
     else
-      redirect '/books/new'
+      redirect '/login'
     end
   end
 
   get '/books/:id' do
-    @book = Book.find_by_id(params[:id])
+    if logged_in?
+      @book = current_user.books.find_by_id(params[:id])
 
-    if @book
-      erb :'/books/show'
+      if @book
+        erb :'/books/show'
+      else
+        redirect '/books'
+      end
     else
-      redirect '/books'
+      redirect '/login'
     end
   end
 
   get '/books/:id/edit' do
-    @book = Book.find_by_id(params[:id])
-    erb :'/books/edit'
+    if logged_in?
+      @book = current_user.books.find_by_id(params[:id])
+      if @book
+        erb :'/books/edit'
+      else
+        redirect '/books'
+      end
+    else
+      redirect '/login'
+    end
   end
 
   patch '/books/:id' do
-    book = Book.find_by_id(params[:id])
-    if book.update(title: params[:title], author: params[:author])
-      redirect "/books/#{book.id}"
+    if logged_in?
+      book = current_user.books.find_by_id(params[:id])
+      if book.update(title: params[:title], author: params[:author])
+        redirect "/books/#{book.id}"
+      else
+        redirect '/books/new'
+      end
     else
-      redirect '/books/new'
+      redirect '/login'
     end
   end
 
   delete '/books/:id' do
-    book = Book.find_by_id(params[:id])
-    if book
-      book.delete
+    if logged_in?
+      book = Book.find_by_id(params[:id])
+      if book
+        book.delete
+      end
+      redirect '/books'
+    else
+      redirect '/login'
     end
-    redirect '/books'
+  end
+
+  helpers do
+    def logged_in?
+      !!session[:id]
+    end
+
+    def current_user
+      @user ||= User.find_by_id(session[:id]) if logged_in?
+    end
   end
 
 end
