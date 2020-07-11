@@ -74,11 +74,15 @@ class ApplicationController < Sinatra::Base
   patch '/books/:id' do
     if logged_in?
       book = current_user.books.find_by_id(params[:id])
-      if book.update(title: params[:title], author: params[:author])
-        redirect "/books/#{book.id}"
-      else
-        redirect '/books/new'
-      end
+        if book
+          if book.update(title: params[:title], author: params[:author])
+            redirect "/books/#{book.id}"
+          else
+            redirect '/books/new'
+          end
+        else
+          redirect '/books'
+        end
     else
       redirect '/login'
     end
