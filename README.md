@@ -1,17 +1,19 @@
+This app allows the user to register/log into a database where they can view or add the names and authors of books they have.
+
+execute
+
+'bundle install '
+
+in order to make sure the app works properly for you
+
 
 CRUD actions
 
-C => Create
-  - get /books/new -> new action (create book listing). Renders a new view with a form to enter the information about the book
-  - post /books (catches the request from the browser) -> create action. Handles form data, redirects
+C => Create get /posts/new -> new action. Renders a new view
+post /posts -> create action. Handles form data, then redirects
 
-R => Read
-  - get /books -> index action. Renders an index view (ideally displaying all the books)
-  - get /books/:id -> show action. Renders a show view. (Gets the information about the specific book.)
+R => Read get /posts -> index action. Renders an index view get /posts/:id -> show action. Renders a show view
 
-U => Update
-  - get books/:id/edit -> edit action. Renders edit view (chooses a specific book entry to edit, renders prefilled form so you can see what you are changing)
-  - patch books/:id -> update action. Handles form data then redirects
+U => Update get /posts/:id/edit -> edit action. Renders edit view patch (put) /posts/:id -> update action. Handles form data, then redirects
 
-D => Delete
-    - delete /books/:id -> delete action. Deletes chosen resource(book), then redirects. - Typically triggered by a button in the show or index view
+D => Delete delete /posts/:id -> delete action. Deletes resource, then redirects. (typically triggered by a button in the show and/or index view)
