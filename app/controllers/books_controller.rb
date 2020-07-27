@@ -3,7 +3,6 @@ class BooksController < ApplicationController
     redirect_if_not_logged_in
       @books = current_user.books
       erb :'books/index'
-
   end
 
   get '/books/new' do

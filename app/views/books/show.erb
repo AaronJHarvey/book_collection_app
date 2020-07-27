@@ -1,6 +1,6 @@
 <h2><%= @book.title %></h2>
 <br>
-<p> This book is written by <%=@book.author%></p>
+<p> This book is written by <%=@book.author.split(" ").map {|word| word.capitalize}.join(" ")%></p>
 
 <form method="POST" action="/books/<%= @book.id %>">
   <input type="hidden" id="hidden" name="_method" value="delete">
