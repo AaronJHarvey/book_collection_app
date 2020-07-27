@@ -23,7 +23,7 @@ class BooksController < ApplicationController
 
   get '/books/:id' do
     redirect_if_not_logged_in
-      @book = current_user.books.find_by_id(params[:id])
+      @book = Book.find_by_id(params[:id])
 
       if @book
         erb :'/books/show'
